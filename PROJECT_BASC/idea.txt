@@ -1,0 +1,55 @@
+Vấn đè: Viết một chương trình quản lý học sinh.
+
+Yêu cầu:
+1. Hiển thị tất cả các học sinh có trong danh sách.
+2. Có thể thêm một mới một học sinh vào danh sách.
+3. Thay đổi thông tin của học sinh đã có.
+4. Xóa bỏ một học sinh ra ngoài danh sách. 
+5. Xem thông tin chi tiết của học sinh trong danh sách. 
+
+Cách thực hiện:
+B1: Lên ý tưởng cho vấn đề.
+B2: Thiết kế database.
+B3: Thiết kế giao điện.
+B4: Code font-end.
+B5: Code back-end.
+B6: Test.
+
+Thực hiện:
+B1: Ý tưởng.
+- Tạo ra một không gian có thể hiện thị thông tin học sinh. ( Gồm: Mã học sinh , tên học sinh, lớp học, và các nút chức năng
+sửa đổi thông tin, xóa học sinh khỏi danh sách, xem chi tiết về học sinh. )
+- Tạo ra một nút để có thể thêm mới học sinh vào danh sách.
+- Tạo ra một khoảng để có thể thêm thông tin học sinh vào danh sách (Gồm: Lớp học sinh, mã học sinh , tên học sinh, giới tính, tuổi của học sinh,  địa chỉ  , nắm sinh, )
+- Một vị trí để có thể hiển thị thông tin của học sinh 
+- Một vị trí để có thế sửa lai thông tin của học sinh.
+
+B2: Thiết kế database 
+
+DROP DATABASE IF EXISTS `manager_study`;
+CREATE DATABASE IF NOT EXISTS `manager_study` CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+USE `manager_study`;
+SET time_zone = '+7:00';
+
+DROP TABLE IF EXISTS `study`;
+CREATE TABLE IF NOT EXISTS `study`
+(
+    `id_student`      INT AUTO_INCREMENT,
+    
+    `class`           VARCHAR(64)     NOT NULL,
+    `code_student`    VARCHAR(16)     NOT NULL,
+    `name_student`    VARCHAR(16)     NOT NULL,
+    `sex`             VARCHAR(16)     NOT NULL,
+    `age`             INT             NOT NULL,
+    `address`         VARCHAR(16)     NOT NULL,
+    `bod`             INT    DEFAULT NULL,
+
+    `deleted`         BOOLEAN         DEFAULT FALSE,
+
+
+    PRIMARY KEY (`id_student`)
+) ENGINE InnoDB;
+
+B3: Thiết kế giao diện.
+B4: Code font-end
