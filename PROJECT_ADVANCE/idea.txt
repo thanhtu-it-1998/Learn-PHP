@@ -1,0 +1,83 @@
+Yêu cầu: Tạo ra một website tin tức.
+
+Các chức năng:
+- Trang chủ hiển thị các tin tức mới nhất theo chuyên mục: Cung cấp các trang con có thể xem chi tiết một bài viết.
+- Tran quản lý:Giúp người quản lý có thể đăng các bài viết, sửa,xóa bài viết,tạo chuyên mục.
+
+Xây dựng database:
+
+► Xác định các đối tượng:
+    • Bài viết - Post.
+        ○ Tên bài viết.
+        ○ Tên chuyên mục.
+        ○ Giới thiệu ngắn.
+        ○ Nội dung.
+        ○ Người tạo ra bài viết.
+        ○ Thời gian tạo ra bài viết.
+    • Chuyên mục.
+        ○ Tên chuyên mục.
+        ○ Người tạo ra chuyên mục.
+        ○ Thời gian tạo.
+    • Người quản trị
+        ○ Tên.
+        ○ Tài khoản.
+        ○ Mật khẩu.
+        ○ Ngày tạo.
+► Quan hệ giữa các bảng.
+    • Quan hệ giữa bảng bài viết và bảng chuyển mục là quan hệ một một, một bài viết chỉ thuộc một chuyên mục.
+    • Quan hệ giữa bài viết, chuyên mục với người tạo là quan hệ một một,một bài viết và một chuyên mục chỉ được tạo bởi một người mà thôi.
+
+► Database.       
+
+DROP DATABASE IF EXISTS `news`;
+CREATE DATABASE IF NOT EXISTS `news` CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+USE `news`;
+SET time_zone = '+7:00';
+
+DROP TABLE IF EXISTS `post`;
+CREATE TABLE IF NOT EXISTS `post`
+(
+    `post_id`      INT(15) AUTO_INCREMENT,
+    
+    `categories_id`     INT(15)         NOT NULL,
+    `users_id`           INT(15)         NOT NULL,
+    `name`              VARCHAR(16)     NOT NULL,
+    `description`       VARCHAR(255)    NOT NULL,
+    `content`           TEXT            NOT NULL,
+    `create_by`         INT(15)         NOT NULL,
+    `create_time`       INT(15)         NOT NULL,
+
+    PRIMARY KEY (`post_id`)
+) ENGINE InnoDB;
+
+
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories`
+(
+    `categories_id`     INT(15) AUTO_INCREMENT,
+   
+    `users_id`           INT(15)         NOT NULL,
+    `name`              VARCHAR(16)     NOT NULL,
+    `create_by`         INT(15)         NOT NULL,
+    `create_time`       INT(15)         NOT NULL,
+
+    PRIMARY KEY (`categories_id`)
+) ENGINE InnoDB;
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users`
+(
+    `users_id`          INT(15) AUTO_INCREMENT,
+    
+    `usesrname`         VARCHAR(255)     NOT NULL,
+    `password`          VARCHAR(255)     NOT NULL,
+    `create_time`       INT(15)         NOT NULL,
+
+    PRIMARY KEY (`users_id`)
+) ENGINE InnoDB;
+
+ALTER TABLE `post` ADD FOREIGN KEY (categories_id) REFERENCES `categories`(categories_id);
+
+ALTER TABLE `categories` ADD FOREIGN KEY (users_id) REFERENCES `users`(users_id);
+ALTER TABLE `post` ADD FOREIGN KEY (users_id) REFERENCES `users`(users_id);
